@@ -1,0 +1,19 @@
+name: 'Platform.sh Database Backup and S3 Sync'
+description: 'Take a dump of the specified database and sync to S3.'
+inputs:
+  platformsh_project:
+    description: 'Platform.sh project ID.'
+    required: true
+  platformsh_environment:
+    description: 'Platform.sh environment name.'
+    required: true
+  aws_s3_bucket:
+    description: 'AWS S3 bucket name.'
+    required: true
+  db_dump_filename_base:
+    description: 'Filename for the database dump. A timestamp will be appended after it.'
+    required: false
+    default: 'db-dump'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
