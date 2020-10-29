@@ -1,3 +1,4 @@
+---
 name: 'Platform.sh Database Backup and S3 Sync'
 description: 'Execute a database backup/dump sync to S3.'
 author: 'Mark Dorison'
