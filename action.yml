@@ -1,5 +1,5 @@
 name: 'Platform.sh Database Backup and S3 Sync'
-description: 'Execite a database backup/dump sync to S3.'
+description: 'Execute a database backup/dump sync to S3.'
 author: 'Mark Dorison'
 inputs:
   platformsh_project:
