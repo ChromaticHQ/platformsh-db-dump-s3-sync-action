@@ -14,7 +14,8 @@ if [ -z ${INPUT_PLATFORMSH_RELATIONSHIP} ]
 then
   echo "No relationship variable provided so no relationship parameter added to platform db:dump."
 else
-  args+=( "--relationship $INPUT_PLATFORMSH_RELATIONSHIP" )
+  # Manually add to index zero for POSIX, which rejected += syntax.
+  args[0]="--relationship $INPUT_PLATFORMSH_RELATIONSHIP"
 fi
 
 platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" "${args[@]}" --gzip -f "$FILENAME".sql.gz
