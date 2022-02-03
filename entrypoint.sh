@@ -4,7 +4,7 @@ php --version
 aws --version
 platform --version
 
-sed -i 's/#   StrictHostKeyChecking ask.*/StrictHostKeyChecking accept-new/' /etc/ssh/ssh_config
+sed -i 's/# StrictHostKeyChecking ask.*/StrictHostKeyChecking accept-new/' /etc/ssh/ssh_config
 FILENAME="${INPUT_DB_DUMP_FILENAME_BASE}-$(date +%F-%T)"
 
 # If we are not limiting the tables with INPUT_ONLY_INCLUDE_THESE_TABLES, then
@@ -21,13 +21,13 @@ done
 if [ -z "${INPUT_PLATFORMSH_RELATIONSHIP}" ]
 then
   # Run command without --relationship parameter.
-  PLATFORM_COMMAND="platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" "${DUMP_ONLY_THESE_TABLES[@]}" --gzip -f "$FILENAME".sql.gz"
+  PLATFORM_COMMAND="platform db:dump -v --yes --project $INPUT_PLATFORMSH_PROJECT --environment $INPUT_PLATFORMSH_ENVIRONMENT ${DUMP_ONLY_THESE_TABLES[*]} --gzip -f $FILENAME.sql.gz"
 else
   # Run command with --relationship parameter.
-  PLATFORM_COMMAND="platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" "${DUMP_ONLY_THESE_TABLES[@]}" --gzip -f "$FILENAME".sql.gz"
+  PLATFORM_COMMAND="platform db:dump -v --yes --project $INPUT_PLATFORMSH_PROJECT --environment $INPUT_PLATFORMSH_ENVIRONMENT --relationship $INPUT_PLATFORMSH_RELATIONSHIP ${DUMP_ONLY_THESE_TABLES[*]} --gzip -f $FILENAME.sql.gz"
 fi
 
-# Use command substitution.
-$($PLATFORM_COMMAND)
+# Run the string through eval to execute the platform db:dump command.
+eval "$PLATFORM_COMMAND"
 
 aws s3 cp "$FILENAME".sql.gz s3://"$INPUT_AWS_S3_BUCKET"
