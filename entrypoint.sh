@@ -4,7 +4,7 @@ php --version
 aws --version
 platform --version
 
-sed -i 's/# StrictHostKeyChecking ask.*/StrictHostKeyChecking accept-new/' /etc/ssh/ssh_config
+sed -i 's/#   StrictHostKeyChecking ask.*/StrictHostKeyChecking accept-new/' /etc/ssh/ssh_config
 FILENAME="${INPUT_DB_DUMP_FILENAME_BASE}-$(date +%F-%T)"
 
 # If we are not limiting the tables with INPUT_ONLY_INCLUDE_THESE_TABLES, then
