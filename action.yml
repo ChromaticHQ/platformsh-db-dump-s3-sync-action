@@ -12,6 +12,9 @@ inputs:
   platformsh_relationship:
     description: 'Platform.sh relationship for multiple db projects.'
     required: false
+  platformsh_app:
+    description: 'Platform.sh app for multiple app projects.'
+    required: false
   aws_s3_bucket:
     description: 'AWS S3 bucket name.'
     required: true
