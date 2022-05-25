@@ -30,4 +30,11 @@ else
   fi
 fi
 
-aws s3 cp "$FILENAME".sql.gz s3://"$INPUT_AWS_S3_BUCKET"
+if [ -z "${INPUT_AWS_S3_DIRECTORY}" ] ]
+then
+  # No directory was supplied, copy the file to the root of the bucket.
+  aws s3 cp "$FILENAME".sql.gz s3://"$INPUT_AWS_S3_BUCKET"
+else
+  # A directory was supplied, so copy the file to it.
+  aws s3 cp "$FILENAME".sql.gz s3://"$INPUT_AWS_S3_BUCKET"/"$INPUT_AWS_S3_FOLDER"
+fi

@@ -22,6 +22,9 @@ inputs:
     description: 'Filename for the database dump. A timestamp will be appended after it.'
     required: false
     default: 'db-dump'
+  aws_s3_directory:
+    description: 'A directory within the S3 bucket with no proceeding / to copy the file to.'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
