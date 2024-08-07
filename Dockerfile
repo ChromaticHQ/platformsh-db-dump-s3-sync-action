@@ -1,5 +1,5 @@
 # Container image that runs your code
-FROM php:7-cli
+FROM php:8-cli
 RUN apt-get update \
     && apt-get --quiet --yes --no-install-recommends install \
       keychain \

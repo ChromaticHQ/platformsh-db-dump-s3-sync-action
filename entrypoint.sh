@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/bin/sh -l
 
 php --version
 aws --version
@@ -17,17 +17,28 @@ do
   DUMP_ONLY_THESE_TABLES+=("--table $table")
 done
 
-# Check if the optional relationship value exists.
-if [ -z "${INPUT_PLATFORMSH_RELATIONSHIP}" ]
+# Check if neither optional relationship nor optional app value exists.
+if [ -z "${INPUT_PLATFORMSH_RELATIONSHIP}" ] && [ -z "${INPUT_PLATFORMSH_APP}" ]
 then
-  # Run command without --relationship parameter.
-  PLATFORM_COMMAND="platform db:dump -v --yes --project $INPUT_PLATFORMSH_PROJECT --environment $INPUT_PLATFORMSH_ENVIRONMENT ${DUMP_ONLY_THESE_TABLES[*]} --gzip -f $FILENAME.sql.gz"
+  # Run command without --relationship and --app parameters.
+  platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --gzip -f "$FILENAME".sql.gz
 else
-  # Run command with --relationship parameter.
-  PLATFORM_COMMAND="platform db:dump -v --yes --project $INPUT_PLATFORMSH_PROJECT --environment $INPUT_PLATFORMSH_ENVIRONMENT --relationship $INPUT_PLATFORMSH_RELATIONSHIP ${DUMP_ONLY_THESE_TABLES[*]} --gzip -f $FILENAME.sql.gz"
+  # Check if the optional app value does not exist, run --relationship only.
+  if [ -z "${INPUT_PLATFORMSH_APP}" ]
+  then
+    # Run command with --relationship parameter only.
+    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" --gzip -f "$FILENAME".sql.gz
+  # Check if the optional relationship value does not exist, run --app only.
+  elif [ -z "${INPUT_PLATFORMSH_RELATIONSHIP}" ]
+  then
+    # Run command with --app parameter only.
+    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --app "$INPUT_PLATFORMSH_APP" --gzip -f "$FILENAME".sql.gz
+  else
+    # To get here we must have both --relationship and --app values available.
+    # Run command with --relationship and --app parameters.
+    # Also the optional DUMP_ONLY_THESE_TABLES argument limits to a subset of tables, separated by spaces.
+    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" --app "$INPUT_PLATFORMSH_APP" ${DUMP_ONLY_THESE_TABLES[*]} --gzip -f "$FILENAME".sql.gz
+  fi
 fi
-
-# Run the string through eval to execute the platform db:dump command.
-eval "$PLATFORM_COMMAND"
 
 aws s3 cp "$FILENAME".sql.gz s3://"$INPUT_AWS_S3_BUCKET"
