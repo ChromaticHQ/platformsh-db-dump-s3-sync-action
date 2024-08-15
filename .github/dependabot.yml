@@ -6,6 +6,6 @@ updates:
     schedule:
       interval: daily
     reviewers:
-      - markdorison
+      - apotek
     assignees:
-      - markdorison
+      - apotek
