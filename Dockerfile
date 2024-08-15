@@ -3,10 +3,9 @@ FROM php:8-cli
 RUN apt-get update \
     && apt-get --quiet --yes --no-install-recommends install \
       keychain \
-      unzip \
-    && curl -L https://github.com/platformsh/platformsh-cli/releases/latest/download/platform.phar -o platform \
-    && chmod +x platform && mv platform /usr/local/bin/platform \
-    && curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
+      unzip
+RUN curl -fsSL https://raw.githubusercontent.com/platformsh/cli/main/installer.sh | bash
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
     && unzip awscliv2.zip \
     && ./aws/install
 
