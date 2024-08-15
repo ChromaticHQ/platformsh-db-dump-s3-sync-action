@@ -6,6 +6,6 @@ updates:
     schedule:
       interval: daily
     reviewers:
-      - apotek
+      - ChromaticHQ/devops
     assignees:
-      - apotek
+      - ChromaticHQ/devops
