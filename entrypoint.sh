@@ -16,9 +16,9 @@ DUMP_ONLY_THESE_TABLES=""
 for table in ${INPUT_DUMP_ONLY_THESE_TABLES}
 do
   echo "Without parentheses..."
-  echo "-- table $table"
+  echo "--table $table"
   echo "And now with parentheses..."
-  echo "-- table ${table}"
+  echo "--table ${table}"
   # Add table options into array.
   # DUMP_ONLY_THESE_TABLES+=("--table ${table}")
 done
