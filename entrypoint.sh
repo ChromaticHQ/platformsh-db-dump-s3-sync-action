@@ -15,9 +15,12 @@ echo "About to go into loop"
 DUMP_ONLY_THESE_TABLES=""
 for table in ${INPUT_DUMP_ONLY_THESE_TABLES}
 do
-  echo $table
+  echo "Without parentheses..."
+  echo "-- table $table"
+  echo "And now with parentheses..."
+  echo "-- table ${table}"
   # Add table options into array.
-  DUMP_ONLY_THESE_TABLES+=("--table ${table}")
+i#  DUMP_ONLY_THESE_TABLES+=("--table ${table}")
 done
 
 # Check if neither optional relationship nor optional app value exists.
