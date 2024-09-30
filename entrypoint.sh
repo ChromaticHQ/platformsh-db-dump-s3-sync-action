@@ -20,7 +20,7 @@ do
   echo "And now with parentheses..."
   echo "-- table ${table}"
   # Add table options into array.
-i#  DUMP_ONLY_THESE_TABLES+=("--table ${table}")
+  # DUMP_ONLY_THESE_TABLES+=("--table ${table}")
 done
 
 # Check if neither optional relationship nor optional app value exists.
