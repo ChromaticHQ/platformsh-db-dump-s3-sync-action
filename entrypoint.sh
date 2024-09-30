@@ -13,8 +13,9 @@ FILENAME="${INPUT_DB_DUMP_FILENAME_BASE}-$(date +%F-%T)"
 DUMP_ONLY_THESE_TABLES=""
 for table in ${INPUT_DUMP_ONLY_THESE_TABLES}
 do
+  echo $table
   # Add table options into array.
-  DUMP_ONLY_THESE_TABLES+=("--table $table")
+  DUMP_ONLY_THESE_TABLES+=("--table ${table}")
 done
 
 # Check if neither optional relationship nor optional app value exists.
