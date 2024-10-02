@@ -26,10 +26,10 @@ TEST_VAR_TWO="testwatchdog"
 TEST_VARS=""
 TEST_VARS+="$TEST_VAR_ONE "
 TEST_VARS+="$TEST_VAR_TWO "
-echo "$TEST_VARS"
+echo "${TEST_VARS}"
 
-echo "About to echo the contents of DUMP_ONLY_THESE_TABLES
-echo "$DUMP_ONLY_THESE_TABLES"
+echo "About to echo the contents of DUMP_ONLY_THESE_TABLES"
+echo "${DUMP_ONLY_THESE_TABLES}"
 
 # Check if neither optional relationship nor optional app value exists.
 if [ -z "${INPUT_PLATFORMSH_RELATIONSHIP}" ] && [ -z "${INPUT_PLATFORMSH_APP}" ]
@@ -51,7 +51,7 @@ else
     # To get here we must have both --relationship and --app values available.
     # Run command with --relationship and --app parameters.
     # Also the optional DUMP_ONLY_THESE_TABLES argument limits to a subset of tables, separated by spaces.
-    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" --app "$INPUT_PLATFORMSH_APP" "$DUMP_ONLY_THESE_TABLES" --gzip -f "$FILENAME".sql.gz
+    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" --app "$INPUT_PLATFORMSH_APP" "${DUMP_ONLY_THESE_TABLES}" --gzip -f "$FILENAME".sql.gz
   fi
 fi
 
