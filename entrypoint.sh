@@ -21,9 +21,10 @@ do
   echo "--table ${table}"
   # Add table options into array.
   # DUMP_ONLY_THESE_TABLES+=("--table ${table}")
+  DUMP_ONLY_THESE_TABLES+="--table ${table} "
 done
 # Temporarily hard-code DUMP_ONLY_THESE_TABLES.
-DUMP_ONLY_THESE_TABLES="--table elog --table watchdog"
+# DUMP_ONLY_THESE_TABLES="--table elog --table watchdog"
 
 # Check if neither optional relationship nor optional app value exists.
 if [ -z "${INPUT_PLATFORMSH_RELATIONSHIP}" ] && [ -z "${INPUT_PLATFORMSH_APP}" ]
