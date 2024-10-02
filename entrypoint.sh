@@ -21,11 +21,11 @@ do
   DUMP_ONLY_THESE_TABLES+=" --table ${table}"
 done
 echo "Testing manual string concatenation"
-TEST_VAR_ONE=" --table testelog"
-TEST_VAR_TWO=" --table testwatchdog"
+TEST_VAR_ONE="testelog"
+TEST_VAR_TWO="testwatchdog"
 TEST_VARS=""
-TEST_VARS+="$TEST_VAR_ONE"
-TEST_VARS+="$TEST_VAR_TWO"
+TEST_VARS+="$TEST_VAR_ONE "
+TEST_VARS+="$TEST_VAR_TWO "
 echo "$TEST_VARS"
 
 echo "About to echo the contents of DUMP_ONLY_THESE_TABLES
