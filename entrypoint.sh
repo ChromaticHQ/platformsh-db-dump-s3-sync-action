@@ -15,17 +15,14 @@ echo "About to go into loop"
 DUMP_ONLY_THESE_TABLES=""
 for table in ${INPUT_DUMP_ONLY_THESE_TABLES}
 do
-  echo "Without parentheses..."
-  echo "--table $table"
-  echo "And now with parentheses..."
-  echo "--table ${table}"
   # Add table options into array.
   # DUMP_ONLY_THESE_TABLES+=("--table ${table}")
   # Concatenate table options into string.
   DUMP_ONLY_THESE_TABLES+="--table ${table} "
 done
-# Temporarily hard-code DUMP_ONLY_THESE_TABLES.
-# DUMP_ONLY_THESE_TABLES="--table elog --table watchdog"
+
+echo "About to echo the contents of DUMP_ONLY_THESE_TABLES
+echo $DUMP_ONLY_THESE_TABLES
 
 # Check if neither optional relationship nor optional app value exists.
 if [ -z "${INPUT_PLATFORMSH_RELATIONSHIP}" ] && [ -z "${INPUT_PLATFORMSH_APP}" ]
