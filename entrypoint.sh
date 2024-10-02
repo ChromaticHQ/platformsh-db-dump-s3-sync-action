@@ -21,6 +21,7 @@ do
   echo "--table ${table}"
   # Add table options into array.
   # DUMP_ONLY_THESE_TABLES+=("--table ${table}")
+  # Concatenate table options into string.
   DUMP_ONLY_THESE_TABLES+="--table ${table} "
 done
 # Temporarily hard-code DUMP_ONLY_THESE_TABLES.
