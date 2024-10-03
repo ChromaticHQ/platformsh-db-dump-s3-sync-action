@@ -51,7 +51,7 @@ else
     # To get here we must have both --relationship and --app values available.
     # Run command with --relationship and --app parameters.
     # Also the optional DUMP_ONLY_THESE_TABLES argument limits to a subset of tables, separated by spaces.
-    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" --app "$INPUT_PLATFORMSH_APP" "${DUMP_ONLY_THESE_TABLES}" --gzip -f "$FILENAME".sql.gz
+    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" --app "$INPUT_PLATFORMSH_APP ${DUMP_ONLY_THESE_TABLES}" --gzip -f "$FILENAME".sql.gz
   fi
 fi
 
