@@ -18,14 +18,14 @@ do
   # Add table options into array.
   # DUMP_ONLY_THESE_TABLES+=("--table ${table}")
   # Concatenate table options into string.
-  DUMP_ONLY_THESE_TABLES+=" --table ${table}"
+  DUMP_ONLY_THESE_TABLES="${DUMP_ONLY_THESE_TABLES} --table ${table}"
 done
 echo "Testing manual string concatenation"
 TEST_VAR_ONE="testelog"
 TEST_VAR_TWO="testwatchdog"
 TEST_VARS=""
-TEST_VARS+="$TEST_VAR_ONE "
-TEST_VARS+="$TEST_VAR_TWO "
+TEST_VARS="${TEST_VARS} ${TEST_VAR_ONE}"
+TEST_VARS="${TEST_VARS} ${TEST_VAR_TWO}"
 echo "${TEST_VARS}"
 
 echo "About to echo the contents of DUMP_ONLY_THESE_TABLES"
