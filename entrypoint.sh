@@ -12,13 +12,14 @@ echo "About to go into loop"
 # If we are not limiting the tables with INPUT_ONLY_INCLUDE_THESE_TABLES, then
 # this will pass harmlessly as an empty string in the platform db:dump command.
 # @todo Can malicious users run command injection attack with table name input?
-DUMP_ONLY_THESE_TABLES=""
+DUMP_ONLY_THESE_TABLES="--table "
 for table in ${INPUT_DUMP_ONLY_THESE_TABLES}
 do
   # Add table options into array.
   # DUMP_ONLY_THESE_TABLES+=("--table ${table}")
   # Concatenate table options into string.
-  DUMP_ONLY_THESE_TABLES="${DUMP_ONLY_THESE_TABLES} --table ${table}"
+  # DUMP_ONLY_THESE_TABLES="${DUMP_ONLY_THESE_TABLES} --table ${table}"
+  DUMP_ONLY_THESE_TABLES="${DUMP_ONLY_THESE_TABLES} ${table}"
 done
 echo "Testing manual string concatenation"
 TEST_VAR_ONE="testelog"
@@ -51,7 +52,7 @@ else
     # To get here we must have both --relationship and --app values available.
     # Run command with --relationship and --app parameters.
     # Also the optional DUMP_ONLY_THESE_TABLES argument limits to a subset of tables, separated by spaces.
-    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" --app "$INPUT_PLATFORMSH_APP ${DUMP_ONLY_THESE_TABLES}" --gzip -f "$FILENAME".sql.gz
+    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" --app "$INPUT_PLATFORMSH_APP" "${DUMP_ONLY_THESE_TABLES}" --gzip -f "$FILENAME".sql.gz
   fi
 fi
 
