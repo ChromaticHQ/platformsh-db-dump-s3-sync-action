@@ -13,6 +13,7 @@ GitHub Action to take a database dump from a platform.sh site and copy the dump 
     platformsh_app: 'api' # optional. specify if the project has multiple apps.
     aws_s3_bucket: 'bucket-name'  # required.
     db_dump_filename_base: 'sitename-db-dump'
+    dump_only_these_tables: 'table_name another_table_name' # optional. limit the tables being dumped, separate the table names with spaces.
   env:
     PLATFORMSH_CLI_TOKEN: ${{ secrets.PLATFORMSH_CLI_TOKEN }}  # required.
     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}  # required.

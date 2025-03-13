@@ -7,6 +7,15 @@ platform --version
 sed -i 's/#   StrictHostKeyChecking ask.*/StrictHostKeyChecking accept-new/' /etc/ssh/ssh_config
 FILENAME="${INPUT_DB_DUMP_FILENAME_BASE}-$(date +%F-%T)"
 
+# If we are not limiting the tables with INPUT_ONLY_INCLUDE_THESE_TABLES, then
+# this will pass harmlessly as an empty string in the platform db:dump command.
+DUMP_ONLY_THESE_TABLES=""
+for table in ${INPUT_DUMP_ONLY_THESE_TABLES}
+do
+  # Concatenate table options into string.
+  DUMP_ONLY_THESE_TABLES="${DUMP_ONLY_THESE_TABLES} --table=${table}"
+done
+
 # Check if neither optional relationship nor optional app value exists.
 if [ -z "${INPUT_PLATFORMSH_RELATIONSHIP}" ] && [ -z "${INPUT_PLATFORMSH_APP}" ]
 then
@@ -26,7 +35,8 @@ else
   else
     # To get here we must have both --relationship and --app values available.
     # Run command with --relationship and --app parameters.
-    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" --app "$INPUT_PLATFORMSH_APP" --gzip -f "$FILENAME".sql.gz
+    # Also the optional DUMP_ONLY_THESE_TABLES argument limits to a subset of tables, but it may be empty.
+    platform db:dump -v --yes --project "$INPUT_PLATFORMSH_PROJECT" --environment "$INPUT_PLATFORMSH_ENVIRONMENT" --relationship "$INPUT_PLATFORMSH_RELATIONSHIP" --app "$INPUT_PLATFORMSH_APP" ${DUMP_ONLY_THESE_TABLES} --gzip -f "$FILENAME".sql.gz
   fi
 fi
 

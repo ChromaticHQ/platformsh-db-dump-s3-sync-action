@@ -22,6 +22,9 @@ inputs:
     description: 'Filename for the database dump. A timestamp will be appended after it.'
     required: false
     default: 'db-dump'
+  dump_only_these_tables:
+    description: 'Limit the dumped tables to this list, separated by spaces.'
+    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
