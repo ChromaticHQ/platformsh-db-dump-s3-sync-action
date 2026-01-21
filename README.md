@@ -12,6 +12,7 @@ GitHub Action to take a database dump from a platform.sh site and copy the dump 
     platformsh_relationship: 'database'  # optional. specify if the project has multiple databases.
     platformsh_app: 'api' # optional. specify if the project has multiple apps.
     aws_s3_bucket: 'bucket-name'  # required.
+    aws_s3_directory: 'my-directory'
     db_dump_filename_base: 'sitename-db-dump'
   env:
     PLATFORMSH_CLI_TOKEN: ${{ secrets.PLATFORMSH_CLI_TOKEN }}  # required.
